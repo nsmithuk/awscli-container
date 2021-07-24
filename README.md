@@ -1,2 +1,3 @@
 # awscli-container
-Container with AWS CLI v2 installed
+
+Dockerfile for creating a container containing the AWS CLI v2.
