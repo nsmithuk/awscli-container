@@ -1,9 +1,15 @@
 FROM ubuntu:20.04 as builder
 
-RUN apt-get update -y && apt install -y curl unzip \
+COPY aws-cli.key ./
+
+RUN apt-get update -y && apt install -y curl unzip gpg \
+    && gpg --import aws-cli.key \
     && curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" \
+    && curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip.sig" -o "awscliv2.sig" \
+    && gpg --verify awscliv2.sig awscliv2.zip \
     && unzip awscliv2.zip \
     && ./aws/install
+
 
 FROM ubuntu:20.04
 
